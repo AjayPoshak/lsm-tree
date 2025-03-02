@@ -15,7 +15,7 @@ func processCommand(input string) {
 		log.Println("Please enter a command: get or set")
 		return
 	}
-  key := strings.Split(input, " ")[1]
+	key := strings.Split(input, " ")[1]
 	if command == "get" {
 		lsm := lsm.New()
 		value := lsm.Get(key)
@@ -30,22 +30,22 @@ func processCommand(input string) {
 }
 
 func main() {
-  reader := bufio.NewReader(os.Stdin)
-  fmt.Println("Enter command: get or set")
-  fmt.Println("Enter quit to exit")
-  for {
-    fmt.Print("> ")
-    command, err := reader.ReadString('\n')
-    if err != nil {
-      log.Println("Error reading command")
-      return
-    }
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Enter command: get or set")
+	fmt.Println("Enter quit to exit")
+	for {
+		fmt.Print("> ")
+		command, err := reader.ReadString('\n')
+		if err != nil {
+			log.Println("Error reading command")
+			return
+		}
 
-    input := strings.TrimSpace(command)
-    if input == "quit" {
-      return
-    }
+		input := strings.TrimSpace(command)
+		if input == "quit" {
+			return
+		}
 
-    processCommand(input)
-  }
+		processCommand(input)
+	}
 }

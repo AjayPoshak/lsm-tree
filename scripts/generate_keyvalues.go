@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	numberOfPairs    = 1000  // Total number of key-value pairs to generate
-	duplicateRate    = 0.3   // 30% chance of generating a duplicate key
-	maxKeyLength     = 10    // Maximum length of generated keys
-	maxValueLength   = 20    // Maximum length of generated values
-	outputFile       = "data/data.txt"
+	numberOfPairs  = 1000 // Total number of key-value pairs to generate
+	duplicateRate  = 0.3  // 30% chance of generating a duplicate key
+	maxKeyLength   = 10   // Maximum length of generated keys
+	maxValueLength = 20   // Maximum length of generated values
+	outputFile     = "data/data.txt"
 )
 
 // generateRandomString creates a random string of specified length
@@ -32,13 +32,13 @@ func generateKeyValuePair(existingKeys []string) (string, string) {
 	if len(existingKeys) > 0 && rand.Float64() < duplicateRate {
 		return existingKeys[rand.Intn(len(existingKeys))], generateRandomString(rand.Intn(maxValueLength) + 1)
 	}
-	
+
 	return generateRandomString(rand.Intn(maxKeyLength) + 1), generateRandomString(rand.Intn(maxValueLength) + 1)
 }
 
 func main() {
 	// Initialize random seed
-  rand.New(rand.NewSource(time.Now().UnixNano()))
+	rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// Create or truncate the output file
 	file, err := os.Create(outputFile)
@@ -56,7 +56,7 @@ func main() {
 		key, value := generateKeyValuePair(existingKeys)
 		pair := fmt.Sprintf("\"%s\"=\"%s\"", key, value)
 		pairs = append(pairs, pair)
-		
+
 		// Only store new keys for potential duplication
 		if !contains(existingKeys, key) {
 			existingKeys = append(existingKeys, key)
@@ -72,7 +72,7 @@ func main() {
 	}
 
 	fmt.Printf("Successfully generated %d key-value pairs in %s\n", numberOfPairs, outputFile)
-	
+
 	// Print statistics
 	uniqueKeys := len(existingKeys)
 	duplicateCount := numberOfPairs - uniqueKeys
